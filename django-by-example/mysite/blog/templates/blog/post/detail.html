@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    {% if post %}
+        {{ post.title }}
+    {% else %}
+        my blog
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p class="date">Published by {{ post.author }} at {{ post.publish }}.</p>
+{{ post.body|linebreaks }}
+<p>
+    <a href="{% url "blog:post_share" post.id %}">通过邮件发送</a>
+</p>
+
+
+{% with comments.count as total_comments %}
+    <h2>{{ total_comments  }} comment{{ total_comments|pluralize }}</h2>
+{% endwith %}
+
+
+{% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+        {{ forloop.counter }}楼:{{ comment.name }},{{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+{% empty %}
+    快来抢占沙发吧.
+{% endfor %}
+
+{% if new_comment %}
+    <p>评论添加成功.</p>
+{% else %}
+<form  action="." method="post">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <input type="submit"  value="添加评论" />
+</form>
+{% endif %}
+{% endblock %}

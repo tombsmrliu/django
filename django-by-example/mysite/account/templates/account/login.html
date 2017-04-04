@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <h1>Log-in</h1>
+    {% if form.errors  %}
+        <p>请重试:</p>
+    {% else %}
+        <p>请登陆:</p>
+    {% endif %}
+
+    <div class="login-form">
+        <form action="{% url "account:login" %}" method="post" accept-charset="utf-8">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next"  value="{{ next }}" />
+            <p>
+                <input type="submit" value="登陆" />
+            </p>
+        </form>
+    </div>
+
+{% endblock %}

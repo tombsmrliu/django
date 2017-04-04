@@ -35,6 +35,7 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
+    # print('the reversed url of post_list_by_tag is:' + reversed('post_list_by_tag'))
     return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag})
 
 def post_detail(request, year, month, day, post):
@@ -58,7 +59,7 @@ def post_detail(request, year, month, day, post):
     post_tag_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.published.filter(tags__in=post_tag_ids).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
-    return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'comment_form':comment_form})
+    return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'comment_form':comment_form, 'similar_posts':similar_posts})
 
 def name(arg):
     pass

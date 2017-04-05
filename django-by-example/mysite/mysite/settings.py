@@ -35,7 +35,7 @@ SECRET_KEY = '%%k)fqd^9yb6ddjeu@kt1-jp)lr2u1(fufo2t&1xp)0_5l&7pv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1 # for sitemap
 # Application definition
@@ -133,3 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+
+# for account's photo
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

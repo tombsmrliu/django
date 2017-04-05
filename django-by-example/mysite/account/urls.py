@@ -41,12 +41,33 @@ urlpatterns = [
 
         url(r'password-reset/$',
             authViews.password_reset,
+            {'template_name':'account/password_reset_form.html',
+                'post_reset_redirect':'account:password_reset_done'},
             name='password_reset'),
 
 
         url(r'password_reset/done/$',
             authViews.password_reset_done,
+            {'template_name':'account/password_reset_done.html'},
             name='password_reset_done'),
+
+
+        url(r'password_reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+)/$',
+            authViews.password_reset_confirm,
+            {'template_name':'account/password_reset_confirm.html'},
+            name='password_reset_confirm'),
+
+
+        url(r'password_reset/complete/$',
+            authViews.password_reset_complete,
+            {'template_name':'account/password_reset_complete.html'},
+            name='password_reset_complete'),
+
+
+        url(r'register/$',views.registration, name='register' ),
+
+
+        url(r'edit/$', views.edit, name='edit'),
 
 
         url(r'dashboard/$', views.dashboard, name='dashboard'),

@@ -15,6 +15,8 @@
             {{ form.as_p }}
             {% csrf_token %}
             <input type="hidden" name="next"  value="{{ next }}" />
+            <p><a href="{% url "account:password_reset" %}">忘了密码?</a></p>
+            <p><a href="{% url "account:register" %}">Sign up</a></p>
             <p>
                 <input type="submit" value="登陆" />
             </p>

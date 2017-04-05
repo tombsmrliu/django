@@ -21,7 +21,7 @@
 
             <span class="user">
                 {% if request.user.is_authenticated %}
-                Hello,{{ request.user.username }}.You can <a href="{% url "account:password_change" %}">change password</a>, <a href="{% url "account:logout" %}">Logout</a>.
+                Hello,{{ request.user.username }}.You can <a href="{% url "account:password_change" %}">change password</a>,<a href="{% url "account:edit" %}">profile</a>, <a href="{% url "account:logout" %}">Logout</a>.
                 {% else %}
                     <a href="{% url "account:login" %}">Login</a>
                 {% endif %}

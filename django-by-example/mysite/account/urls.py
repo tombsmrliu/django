@@ -4,13 +4,13 @@ from django.contrib.auth import views as authViews
 
 urlpatterns = [
         # 自定义认证视图
-        # url(r'login/$', views.user_login, name='login'),
+        url(r'login/$', views.user_login, name='login'),
 
         # 使用内置认证视图
-        url(r'login/$', 
-            authViews.login,
-            {'template_name':'account/login.html'},
-            name='login'),
+        # url(r'login/$', 
+            # authViews.login,
+            # {'template_name':'account/login.html'},
+            # name='login'),
 
 
         url(r'logout/$',

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .forms import LoginForm, UserRegistrationForm, ProfileEditForm, UserEditForm
 from .models import Profile
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.urlresolvers import reverse, reverse_lazy
 
 
 # Create your views here.
@@ -17,6 +19,8 @@ def dashboard(request):
 
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('account:dashboard'))
 
     # 先判断是不是POST方法提交请求
     if request.method == 'POST':
@@ -35,7 +39,8 @@ def user_login(request):
 
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('登陆成功!')
+                    # return HttpResponse('登陆成功!')
+                    return HttpResponseRedirect(reverse('account:dashboard'))
                 else:
                     return HttpResponse('用户被禁用!')
             else:
@@ -72,17 +77,31 @@ def edit(request):
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                 data=request.POST)
-        profile_form = ProfileEditForm(instance=request.user.profile,
-                                    data=request.POST,
-                                    files=request.FILES)
+
+        try:
+            profile_form = ProfileEditForm(instance=request.user.profile,
+                                        data=request.POST,
+                                        files=request.FILES)
+        except Profile.DoesNotExist:
+            Profile.objects.create(user=request.user)
+            profile_form = ProfileEditForm(instance=request.user.profile,
+                                        data=request.POST,
+                                        files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return render(request, 'account/edit_done.html')
+            messages.success(request, '更新成功!')
+            # return render(request, 'account/edit_done.html')
+        else:
+            messages.error(request, '更新失败!')
     else:
-        print(dir(request.user))
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile)
+        try:
+            profile_form = ProfileEditForm(instance=request.user.profile)
+        except Profile.DoesNotExist:
+            Profile.objects.create(user=request.user)
+            profile_form = ProfileEditForm(instance=request.user.profile)
+
     return render(request, 'account/edit.html', {'user_form':user_form, 'profile_form':profile_form})
 
 

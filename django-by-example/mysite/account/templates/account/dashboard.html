@@ -4,5 +4,10 @@
 
 {% block content %}
     <h1>Dashboard</h1>
-    <p>Welcome to your dashboard.</p>
+
+    {% with total_images_created=request.user.image_created.count %}
+    <p>Welcome to your dashboard.You have created {{ total_images_created  }} image{{ total_images_created|pluralize }}.</p>
+    {% endwith %}
+
+    <p>Drag this button to bookmark toolbar---<a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">BookMark</a></p>
 {% endblock %}

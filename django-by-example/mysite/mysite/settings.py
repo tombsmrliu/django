@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'account',
     'images',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
                             'account.authentication.EmailAuthBackend'
         ]
+
+TEMPLATE_DEBUG = True

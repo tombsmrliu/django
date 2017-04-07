@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ image.title  }}{% endblock %}
+
+{% block content %}
+<h1>{{ image.title }}</h1>
+
+    <img src="{{ image.image.url  }}" class="image-detail"/>
+    {% with total_likes=image.users_like.count %}
+    <div class="image-info">
+        <div>
+            <span class="count"><span class="total"> {{ total_likes }} </span>like{{ total_likes|pluralize }} </span>
+            <form action="/images/like/" method="post" accept-charset="utf-8">
+                <input type="hidden" name="id"  value="{{ image.id }}" />
+                <input type="hidden" name="action"  value="{% if request.user in image.users_like.all %}un{% endif %}like" />
+                <input type="submit"  value="{% if request.user in image.users_like.all %}un{% endif %}like" />
+                {% csrf_token %}
+            </form>
+        </div>
+        <div>
+            {{ image.description|linebreaks }}
+        </div>
+
+        <div class="image-likes">
+            <div>
+                {% for user in image.users_like.all %}
+                        {% if user.profile.photo %}
+                        <img src="{{ user.profile.photo.url }}"/>
+                        {% endif %}
+                        {{ user.username }}
+                        {% if not forloop.last %}
+                            ,
+                        {% else %}
+                            like this image.
+                        {% endif %}
+                {% empty %}
+                    Nobody like this.
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+{% endblock %}
+

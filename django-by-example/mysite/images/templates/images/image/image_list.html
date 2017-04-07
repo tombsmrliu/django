@@ -1,0 +1,22 @@
+{% extends "base.html"%}
+
+{% block title %}Images{% endblock %}
+
+{% block content %}
+    <h1>Images</h1>
+    {% for image in images %}
+        <div>
+            <a href="{{ image.get_absolute_url }}">
+                <div style="height:200px; width:200px; overflow:hidden">
+                    <img src="{{ image.image.url }}"/>
+                </div>
+            {{ image.title }}
+            </a>
+            <p>
+                {{ image.description }}
+            </p>
+        </div>
+    {% empty %}
+        There have no images.
+    {% endfor %}
+{% endblock content %}

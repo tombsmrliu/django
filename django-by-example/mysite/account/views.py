@@ -20,6 +20,8 @@ def dashboard(request):
 
 def user_login(request):
     if request.user.is_authenticated:
+        if next:
+            HttpResponseRedirect(next)
         return HttpResponseRedirect(reverse('account:dashboard'))
 
     # 先判断是不是POST方法提交请求
@@ -39,8 +41,10 @@ def user_login(request):
 
                 if user.is_active:
                     login(request, user)
-                    # return HttpResponse('登陆成功!')
-                    return HttpResponseRedirect(reverse('account:dashboard'))
+                    next_url = request.POST['next']
+                    if next_url == 'None':
+                        return HttpResponseRedirect(reverse('account:dashboard'))
+                    return HttpResponseRedirect(request.POST['next'])
                 else:
                     return HttpResponse('用户被禁用!')
             else:
@@ -51,7 +55,7 @@ def user_login(request):
     else:
         form = LoginForm()
 
-    return render(request, 'account/login.html', {'form':form})
+    return render(request, 'account/login.html', {'form':form, 'next':request.GET.get('next')})
 
 
 
@@ -101,7 +105,6 @@ def edit(request):
         except Profile.DoesNotExist:
             Profile.objects.create(user=request.user)
             profile_form = ProfileEditForm(instance=request.user.profile)
-
     return render(request, 'account/edit.html', {'user_form':user_form, 'profile_form':profile_form})
 
 

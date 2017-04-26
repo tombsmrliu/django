@@ -1,0 +1,155 @@
+{% extends "minilibrary/base.html" %}
+
+{% block title %}Topic{% endblock %}
+
+
+{% block content  %}
+    <div class="container">
+        <!--主题发布者面板-->
+        <div class="topic-publisher-panel">
+            <!--主题头部-->
+            <div class="page-header">
+                {{topic.name}}主题名
+                <h1>{{ topic.title }}</h1>
+                <a href="{{ topic.category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:red"></span>{{ topic.category }}</a>
+            </div>
+            <!--主题内容-->
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="./image/userIcon.jpg" alt="媒体对象">
+                </a>
+                <div class="media-body">
+                    <span class="media-heading">{{ topic.auth }}</span>
+                    <ul class="nav nav-justified">
+                        <li><i>{{ topic.created.year }}-{{ topic.created.month }}-{{ topic.created.day }}</i></li>
+                    </ul>
+                    <div class="topic-content">
+                        <p>{{ topic.description }}</p>
+                    </div>
+                    <!--文件下载区-->
+                    <div class="col-md-4">
+                        <ul class="nav nav-pills navbar-left">
+                            <li><label for="">asdf.pdf</label></li>
+                            <li><a href="#">下载文件</a></li>
+                        </ul>
+                    </div>
+
+                    <!--主题操作选项-->
+                    <div class="col-md-8">
+                        <ul class="nav nav-pills navbar-right">
+                            <li>
+                                <form action="{% url "minilibrary:topic_like" topic.id %}" method="post" accept-charset="utf-8">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="topic_id" id="topic_id" value="{{ topid.id }}" />
+
+                                    <!-- 这里是点赞按钮，前端需要改 -->
+                                    <input type="submit" name="" id="" value="赞{{ topic.profile.total_likes }}" />
+                                </form>
+                            </li>
+
+
+                            <li>
+                                <form action="{% url "minilibrary:topic_bookmark" topic.id %}" method="post" accept-charset="utf-8">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="topic_id" id="topic_id" value="{{ topid.id }}" />
+
+                                    <!-- 这里是点赞按钮，前端需要改 -->
+                                    <input type="submit" name="" id="" value="收藏{{ topic.profile.total_bookmarks }}" />
+                                </form>
+                            </li>
+                            <li>
+                                <a class="btn btn-sm btn-default " href="#" role="button" data-toggle="modal" data-target="#myModal">
+                                    <span class="glyphicon glyphicon-pencil"></span>回复
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="page-header">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--主题回复面板-->
+        <div id="topic-reply-pannel">
+          {% for comment in topic.comments.all %}
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="./image/userIcon.jpg" alt="媒体对象">
+                </a>
+
+                <div class="media-body">
+                    <span class="media-heading">{{ comment.auth }}</span>
+                    <ul class="nav nav-justified">
+                        <li><i>{{ comment.created.year }}-{{ comment.created.month }}-{{ comment.created.day }}</i></li>
+                    </ul>
+                    <div class="topic-content">
+                        <p>{{ comment.body }}</p>
+
+                    </div>
+
+                    <!--主题操作选项-->
+                    <div class="col-md-12">
+                        <ul class="nav nav-pills navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></li>
+                            <!-- <li>
+                                <a class="btn btn-sm btn-default " href="#" role="button" data-toggle="modal" data-target="#myModal">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </li> -->
+
+                        </ul>
+
+                    </div>
+
+                    <div class="page-header">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+        <div id="topic-pagger-pannel">
+                  <nav aria-label="Page navigation">
+                      <ul class="pager">
+                          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span>Previous</a></li>
+                          <li class="next"><a href="#">Next<span aria-hidden="true">&rarr;</span></a></li>
+                      </ul>
+                  </nav>
+        </div>
+
+        <!-- 模态框部分 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel">回复该的主题</h3>
+                    </div>
+
+                    <!-- form -->
+                    <form class="" action="#" method="post">
+                      {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="20" placeholder="输入回复内容" name="body"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-pencil"></span>回复</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

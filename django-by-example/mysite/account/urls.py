@@ -71,4 +71,12 @@ urlpatterns = [
 
 
         url(r'dashboard/$', views.dashboard, name='dashboard'),
+
+
+        url(r'users/$', views.user_list, name='user_list'),
+
+
+        url(r'user/(?P<username>[-\w]+)/detail/$', views.user_detail, name='user_detail'),
+        # 巨坑...当想访问/user/follow时， 会被user_detail先匹配到，并且吧follower当做username传进去，然后导致错误,所以我吧上面的正则加上了/detail/单词。给我的教训是尽力写多的url正则。
+        url(r'user/follow/$', views.user_follow, name='user_follow'),
         ]

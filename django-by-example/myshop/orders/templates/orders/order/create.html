@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+
+{% block title  %}提交订单{% endblock %}
+
+
+{% block content %}
+    <h1>提交订单</h1>
+
+    <div class="order-info">
+        <h3>商品列表</h3>
+        <ul>
+            {% for item  in cart  %}
+                <li>{{ item.product.name }} X{{ item.quantity }}</li>
+                <span>{{ item.total_price }}RMB </span>
+            {% endfor %}
+        </ul>
+
+        <p>订单金额:{{ cart.get_total_price }}RMB</p>
+    </div>
+
+    <form action="." method="post" accept-charset="utf-8">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="确认订单" />
+    </form>
+{% endblock %}

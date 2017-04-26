@@ -1,0 +1,11 @@
+{% extends "minilibrary/base.html" %}
+
+{% block title %}创建主题{% endblock %}
+
+{% block content %}
+    <form action="." method="post" accept-charset="utf-8" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit"  value="创建" />
+    </form>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+      <meta name="description" content="Minilibrary">
+      <meta name="author" content="Liuxi">
+
+      <title>{% block title %}{% endblock %}</title>
+
+      <!-- reference Bootstrap core CSS -->
+      <!-- <link rel="stylesheet" href="" > -->
+      <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <!-- <link rel="stylesheet" href="" > -->
+      <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+
+      <!-- Custom styles for this template -->
+      <link rel="stylesheet" href="{% static "minilibrary/css/jumbotron.css" %}" >
+      <!-- <link rel="stylesheet" href="./static/minilibrary/css/base.css"> -->
+      <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+      <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+      <script src="{% static  "minilibrary/js/ie-emulation-modes-warning.js" %}"></script>
+      {% block loadmystatic %}{% endblock %}
+    </head>
+    <body>
+
+      {% if request.user.is_authenticated %}
+           {% include "after_login.html" %}
+      {% else %}
+          {% include "before_login.html" %}
+      {% endif %}
+
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li>
+                    {{ message|safe }}
+                    <a href="."class="close">X</a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div id="content" class="content">
+            {% block content %}{% endblock %}
+
+        <div class="container">
+
+            <footer>
+                <p>© 2017 刘西, Inc.</p>
+            </footer>
+        </div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- <script>
+        window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+    </script> -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- IE10 调整surface和win8平板设备bug -->
+    <script src="{% static "minilibrary/js/ie10-viewport-bug-workaround.js" %}"></script>
+</body>
+</html>

@@ -9,5 +9,11 @@
     <p>Welcome to your dashboard.You have created {{ total_images_created  }} image{{ total_images_created|pluralize }}.</p>
     {% endwith %}
 
-    <p>Drag this button to bookmark toolbar---<a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">BookMark</a></p>
+    <p>Drag this button to bookmark toolbar---<a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">BookMark</a> or <a href="{% url "images:create"%}">Create a image</a>.</p>
+    <h2>What's happening?</h2>
+    <div id="action-list">
+        {% for action in actions %}
+            {% include "actions/action/detail.html" %}
+        {% endfor %}
+    </div>
 {% endblock %}

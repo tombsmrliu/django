@@ -1,0 +1,129 @@
+{% extends "minilibrary/base.html" %}
+
+{% block title %}Topic-List{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="nav nav-pills navbar-left">
+                <li class="dropdown active">
+                  {% with categoryid=selectedCategory.id %}
+                      {% with selectedCategoryName=selectedCategory.name %}
+                    <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% if selectedCategoryName %}{{ selectedCategoryName }}{% else %}所有分类{% endif %}<span class="caret"></span></a>
+                      {% endwith %}
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url "minilibrary:topic_list" %}" >所有分类</a></li>
+                      {% for category in categories %}
+                          <li><a href="{{ category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:red;"></span>{{ category }}</a></li>
+                      {% endfor %}
+                    </ul>
+                    {% endwith %}
+                </li>
+                <li><a href="#">首页</a></li>
+                <li class="active"><a href="#">最新<span class="sr-only">(current)</span><span class="badge">14</span></a></li>
+                <li><a href="#">热门</a></li>
+            </ul>
+        </div>
+        <div class="col-md-7">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                           <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <a class="btn btn-danger btn-lg" href="#" role="button" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-plus"></span>发布主题
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <th class="topic">主题</th>
+                    <th class="category">分类</th>
+                    <th class="user">用户</th>
+                    <th class="lookupnum">浏览人数</th>
+                    <!-- <th class="activitynum">关注人数</th> -->
+                </thead>
+
+                <tbody>
+
+                  {% for topic in topics %}
+                    <tr>
+                        <td><a href="{{ topic.get_absolute_url }}">{{ topic }}</a><span><span class="glyphicon glyphicon-asterisk"></span>最新</span>
+                        </td>
+                        <td><a href="{{ topic.category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:red"></span>{{ topic.category }}</a></td>
+                        <td>{{ topic.auth }}</td>
+                        <td>{{ topic.profile.views }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation">
+                <ul class="pager">
+                    <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span>Previous</a></li>
+                    <li class="next"><a href="#">Next<span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- /container -->
+
+    <!-- 模态框部分 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">创建新的主题</h3>
+                </div>
+
+                <!-- form -->
+                <form class="" action="{% url "minilibrary:topic_create" %}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="title" class="form-control" id="InputTopicName" placeholder="输入主题名称">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="category">
+                            <option>选择分类</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputFile">上传文件</label>
+                        <input type="file" id="InputFile">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control" rows="20" name="description" placeholder="输入主题内容"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-plus"></span>创建主题</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

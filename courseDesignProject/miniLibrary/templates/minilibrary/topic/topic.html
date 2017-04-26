@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{topic.name}}</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>{{topic.name}}</h1>
+        </div>
+        <!--帖子下方操作工具条-->
+
+        <div class="navbar navbar-right">
+
+              <div class="row">
+                <ul class="navbar nav-pills">
+                   <div class="col-md-5">
+                         <li><a href="#">{{topic.LikeNum}}赞</a></li>
+                   </div>
+                   <div class="col-md-1">
+                         <li><span class="glyphicon glyphicon-heart"></span></li>
+                   </div>
+                   <div class="col-md-1">
+                        <li><span class="glyphicon glyphicon-bookmark"></span></li>
+                   </div>
+                   <div class="col-md-1">
+                     <li>
+                         <a class="btn btn-default btn-sm" href="#" role="button" data-toggle="modal" data-target="#myModal">
+                             <span class="glyphicon glyphicon-pencil"></span>回复
+                         </a>
+                     </li>
+                   </div>
+                </ul>
+              </div>
+
+        </div>
+
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+</body>
+
+</html>

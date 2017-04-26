@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title%}{{ user.username }}{% endblock %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+    <div class="profile-info">
+        {% with user.profile.photo as photo %}
+        <div style="height:80px; width:80px; border:solid 1px red; overflow:hidden;">
+            <img src="{{ photo.url }}"/>
+        </div>
+        {% endwith %}
+    </div>
+
+    {% with user.followers.count as total_followers %}
+        <span class="count"> 
+            <span class="total">{{ total_followers }}</span>
+            follower{{ total_followers|pluralize }}
+        </span>
+
+        <form action="{% url "account:user_follow" %}" method="post" accept-charset="utf-8">
+            <input type="hidden" name="action"  value="{%if request.user in user.followers.all %}un{% endif %}follow" />
+            <input type="hidden" name="id"  value="{{ user.id }}" />
+            <input type="submit"  value="{%if request.user in user.followers.all %}un{% endif %}follow" />
+            {% csrf_token %}
+        </form>
+
+        <div class="images">
+            {% include "images/image/image_list.html" with images=user.images_created.all %}
+        </div>
+    {% endwith %}
+{% endblock content %}

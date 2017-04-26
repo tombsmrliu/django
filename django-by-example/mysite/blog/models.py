@@ -69,7 +69,3 @@ class Comment(models.Model):
     def __str__(self):
         return '{}对{}的评论.'.format(self.name, self.post)
 # class Comment end
-
-
-
-

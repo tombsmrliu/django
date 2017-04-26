@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="Minilibrary">
+    <meta name="author" content="Liuxi">
+
+    <title>MiniLibrary</title>
+
+    <!-- reference Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/jumbotron.css" rel="stylesheet">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./js/ie-emulation-modes-warning.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+              </button>
+                <a class="navbar-brand" href="#">MiniLibrary</a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" placeholder="用户名" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="密码" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">登陆</button>
+                    <a class="btn btn-primary" href="#" role="button">注册</a>
+                </form>
+            </div>
+            <!--/.navbar -->
+        </div>
+    </nav>
+
+    <nav class="navbar-dropdown">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <ul class="nav nav-pills navbar-left">
+                        <li class="dropdown active">
+                            <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">所有分类<span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="#">所有分类</a></li>
+                                <li><a href="#">求助</a></li>
+                                <li><a href="#">分享</a></li>
+                                <li><a href="#">电子书</a></li>
+                                <li><a href="#">论文</a></li>
+                                <li><a href="#">实验报告</a></li>
+                                <li><a href="#">试题/试卷</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">首页</a></li>
+                        <li class="active"><a href="#">最新<span class="sr-only">(current)</span><span class="badge">14</span></a></li>
+                        <li><a href="#">热门</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-7">
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                               <button class="btn btn-default" type="button">搜索</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <a class="btn btn-danger btn-lg" href="#" role="button" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus"></span>发布主题
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <th class="topic">主题</th>
+                        <th class="category">分类</th>
+                        <th class="user">用户</th>
+                        <th class="replynum">回复数</th>
+                        <th class="lookupnum">浏览人数</th>
+                        <th class="activitynum">活跃数</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Item 1 <span><span class="glyphicon glyphicon-asterisk"></span>最新</span></td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1<span><span class="glyphicon glyphicon-asterisk"></span>最新</span></td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1<span><span class="glyphicon glyphicon-asterisk"></span>最新</span></td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>Item 2</td>
+                            <td>Item 3</td>
+                            <td>Item 4</td>
+                            <td>Item 5</td>
+                            <td>Item 6</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pager">
+                        <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span>Previous</a></li>
+                        <li class="next"><a href="#">Next<span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="container">
+
+            <footer>
+                <p>© 2017 刘西, Inc.</p>
+            </footer>
+        </div>
+        <!-- /container -->
+
+        <!-- 模态框部分 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel">创建新的主题</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="InputTopicName" placeholder="输入主题名称">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                        <option>选择分类</option>
+                                        <option>求助</option>
+                                        <option>分享</option>
+                                        <option>电子书</option>
+                                        <option>论文</option>
+                                        <option>实验报告</option>
+                                        <option>试题/试卷</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                               <label for="InputFile">上传文件</label>
+                               <input type="file" id="InputFile">
+                        </div>
+
+                        <div class="form-group">
+                               <textarea class="form-control" rows="20" placeholder="输入主题内容"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-plus"></span>创建主题</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript文件
+    ================================================== -->
+        <!--加快速度加载所以放在后面 -->
+        <script src="./js/jquery.min.js"></script>
+        <script>
+            window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+        </script>
+        <script src="./js/bootstrap.min.js"></script>
+        <!-- IE10 调整surface和win8平板设备bug -->
+        <script src="./js/ie10-viewport-bug-workaround.js"></script>
+
+</html>

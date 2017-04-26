@@ -47,13 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
     'taggit',
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'account',
+    'blog',
     'images',
     'sorl.thumbnail',
+    'actions',
 ]
 
 MIDDLEWARE = [
@@ -151,4 +152,14 @@ AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
                             'account.authentication.EmailAuthBackend'
         ]
 
+# for sorl.thumbnail at INSTALLED_APPS
 TEMPLATE_DEBUG = True
+
+
+
+# for budil-in models to get get_absolute_url
+ABSOLUTE_URL_OVERRIDES = {
+        'auth.user': lambda u: reverse_lazy('account:user_detail', args=[u.username])
+        }
+
+

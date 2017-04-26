@@ -15,6 +15,7 @@ class Image(models.Model):
     description = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True, db_index=True)
     users_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='imaged_liked', blank=True)
+    total_likes = models.PositiveIntegerField(db_index=True, default=0)
     # db_index 的作用
 
 
@@ -24,7 +25,7 @@ class Image(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-            super(Image, self).save(*args, **kwargs)
+        super(Image, self).save(*args, **kwargs)
 
 
     def get_absolute_url(self):

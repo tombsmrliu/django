@@ -1,0 +1,29 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url "minilibrary:topic_list" %}">MiniLibrary</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" action="{% url "account:login" %}" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="用户名" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="密码" class="form-control">
+                </div>
+                <input type="hidden" name="next" value="{{ request.path }}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">登陆</button>
+                <a class="btn btn-primary" href="{% url "account:register" %}" role="button">注册</a>
+            </form>
+        </div>
+        <!--/.navbar -->
+    </div>
+</nav>

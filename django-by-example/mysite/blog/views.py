@@ -61,8 +61,6 @@ def post_detail(request, year, month, day, post):
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
     return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'comment_form':comment_form, 'similar_posts':similar_posts})
 
-def name(arg):
-    pass
 
 def post_share(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='p')

@@ -28,10 +28,10 @@ def dashboard(request):
 
 
 def user_login(request):
-    if request.user.is_authenticated:
-        if next:
-            HttpResponseRedirect(next)
-        return HttpResponseRedirect(reverse('account:dashboard'))
+    # if request.user.is_authenticated:
+        # if next:
+            # HttpResponseRedirect(next)
+        # return HttpResponseRedirect(reverse('account:dashboard'))
 
     # 先判断是不是POST方法提交请求
     if request.method == 'POST':

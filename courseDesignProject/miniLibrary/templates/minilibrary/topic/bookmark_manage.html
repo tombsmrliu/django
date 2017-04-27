@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}bookmark_manage{% endblock %}
+
+{% block mainmenubar%}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>收藏管理</h2>
+    <div class="col-md-9">
+        <table class="table table-hover">
+            <thead>
+                <th>主题</th>
+                <th>创建用户</th>
+                <th>操作</th>
+            </thead>
+
+            <tbody>
+                {% for  topicProfile in topicProfiles.all  %}
+                    <tr>
+                        <td>{{ topicProfile.topic}}</td>
+                        <td>{{ topicProfile.topic.auth  }}</td>
+                        <td><a href="{% url "minilibrary:remove_bookmark" topicProfile.topic.id %}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign"></span>移除收藏</a></td>
+                    </tr>
+                {% empty %}
+                <tr>
+                    <td>还没有任何收藏呢!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

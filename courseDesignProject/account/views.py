@@ -112,3 +112,7 @@ def user_detail(request, username):
     return render(request, 'account/user/detail.html', {'section':'people', 'user':user})
 
 
+
+@login_required
+def personal_center(request):
+    return render(request, 'account/personal_center.html')

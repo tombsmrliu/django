@@ -15,18 +15,22 @@ def index(request):
 
 @login_required
 def topic_create(request):
+    categories = Category.objects.all()
     if request.method == 'POST':
-        form = TopicCreateForm(request.POST)
+        form = TopicCreateForm(request.POST, request.FILES)
+        files = request.FILES.get('files')
+        # print(files)
         if form.is_valid():
             # form.files.save()
             topic = form.save(commit=False)
             topic.auth = request.user
+            print(topic.files)
             topic.save()
             messages.success(request, '主题\'{}\'发布成功,等待管理员审核!'.format(topic.title))
             return redirect('minilibrary:topic_list')
     else:
         form = TopicCreateForm()
-    return render(request, 'minilibrary/topic/topic_create.html', {'form':form})
+    return render(request, 'minilibrary/topic/topic_create.html', {'form':form, 'categories': categories})
 
 
 def topic_list(request, category_id=None):
@@ -137,7 +141,7 @@ def topic_bookmark(request, topic_id):
 def bookmark_list(request):
     user = request.user
     topicProfiles = user.bookmarked
-    return render(request, 'minilibrary/topic/bookmarkManage.html', {'topicProfiles': topicProfiles})
+    return render(request, 'minilibrary/topic/bookmark_manage.html', {'topicProfiles': topicProfiles})
     
     
 @login_required
@@ -153,9 +157,11 @@ def remove_bookmark(request, topic_id):
             messages.success(request, '\'{}\'已成功从收藏夹移除!'.format(topic))
     except:
         messages.error(request, '错误,删除失败!')
-    return redirect('minilibrary:bookmark_list')
-    
-    
+    return redirect('minilibrary:bookmark_manage')
+
+
+
+
 @login_required
 def topic_manage(request):
     user = request.user

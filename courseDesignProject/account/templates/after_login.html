@@ -1,3 +1,14 @@
-<a href="{% url "account:logout" %}">dengchu</a>
-<a href="{% url "minilibrary:bookmark_list" %}">收藏夹</a>
-<a href="{% url "minilibrary:topic_manage" %}">主题管理</a>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url "minilibrary:topic_list" %}">MiniLibrary</a>
+        </div>
+
+        <div class="col-md-offset-8">
+            <a class="btn btn-lg btn-primary" href="#" role="banner">您好 {{ request.user.username }}</a>
+            <a class="btn btn-lg btn-warning" href="{% url "account:personal_center" %}" role="button">个人中心</a>
+            <a class="btn btn-lg btn-info" href="{% url "account:logout" %}" role="button">注销</a>
+        </div>
+
+    </div>
+</nav>

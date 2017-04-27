@@ -2,10 +2,41 @@
 
 {% block title %}创建主题{% endblock %}
 
+{% block mainmenubar %} {% endblock %}
 {% block content %}
     <form action="." method="post" accept-charset="utf-8" enctype="multipart/form-data">
         {{ form.as_p }}
         {% csrf_token %}
         <input type="submit"  value="创建" />
     </form>
+    <div class="container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="myModalLabel">创建新的主题</h3>
+        </div>
+        <form enctype="multipart/form-data" class="" action="{% url "minilibrary:topic_create" %}" method="post">
+            <div class="form-group">
+                <input type="text" name="title" class="form-control" id="InputTopicName" placeholder="输入主题名称">
+            </div>
+            <div class="form-group">
+              <select class="form-control">
+                  <option>选择分类</option>
+                  {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="InputFile">上传文件</label>
+                <input name="files" type="file" id="InputFile">
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" rows="20" placeholder="输入主题内容" name="description"></textarea>
+            </div>
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-plus"></span>创建主题</button>
+            <a role="button" class="btn btn-danger" >取消</a>
+        </form>
+    </div>
 {% endblock %}

@@ -16,8 +16,8 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    fields = ('name',)
+    list_display = ('name', 'color')
+    fields = ('name', 'color')
 
 
 @admin.register(Topic)

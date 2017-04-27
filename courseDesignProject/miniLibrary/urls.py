@@ -9,4 +9,9 @@ urlpatterns = [
             url(r'^download_file/$', views.download_file, name='download_file' ),
             url(r'^topic_like/(?P<topic_id>\d+)/$', views.topic_like, name='topic_like'),
             url(r'^topic_bookmark/(?P<topic_id>\d+)/$', views.topic_bookmark, name='topic_bookmark'),
+            url(r'^bookmark_list/$', views.bookmark_list, name='bookmark_list'),
+            url(r'^remove_bookmark/(?P<topic_id>\d+)/$', views.remove_bookmark, name='remove_bookmark'),
+            url(r'^topic_manage/$', views.topic_manage, name='topic_manage'),
+            url(r'^topic_remove/(?P<topic_id>\d+)/$', views.topic_remove, name='topic_remove'),
+            url(r'^search/$', views.topic_search, name='search'),
         ]

@@ -28,28 +28,33 @@
       {% block loadmystatic %}{% endblock %}
     </head>
     <body>
-
-      {% if request.user.is_authenticated %}
-           {% include "after_login.html" %}
-      {% else %}
-          {% include "before_login.html" %}
-      {% endif %}
-
-
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li>
-                    {{ message|safe }}
-                    <a href="."class="close">X</a>
-                </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        <div id="content" class="content">
-            {% block content %}{% endblock %}
-
         <div class="container">
+
+            <div class="row">
+              {% if request.user.is_authenticated %}
+                   {% include "after_login.html" %}
+              {% else %}
+                  {% include "before_login.html" %}
+              {% endif %}
+            </div>
+
+
+            <div class="row">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li>
+                            {{ message|safe }}
+                            <a href="."class="close">X</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div id="content" class="content">
+                {% block content %}{% endblock %}
+            </div>
 
             <footer>
                 <p>© 2017 刘西, Inc.</p>

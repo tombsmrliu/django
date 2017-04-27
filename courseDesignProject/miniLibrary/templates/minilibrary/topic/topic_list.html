@@ -17,7 +17,7 @@
                     <ul class="dropdown-menu">
                       <li><a href="{% url "minilibrary:topic_list" %}" >所有分类</a></li>
                       {% for category in categories %}
-                          <li><a href="{{ category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:red;"></span>{{ category }}</a></li>
+                          <li><a href="{{ category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:{{ category.color }};"></span>{{ category }}</a></li>
                       {% endfor %}
                     </ul>
                     {% endwith %}
@@ -28,12 +28,14 @@
             </ul>
         </div>
         <div class="col-md-7">
+                <form id="" action="{% url "minilibrary:search" %}" method="get" accept-charset="utf-8">
             <div class="input-group input-group-lg">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                           <button class="btn btn-default" type="button">搜索</button>
+                    <input type="text" class="form-control" placeholder="Search for..." name="search_word">
+                    <span class="input-group-btn">
+                           <button class="btn btn-default" type="submit">搜索</button>
                     </span>
             </div>
+                </form>
         </div>
 
         <div class="col-md-1">
@@ -64,7 +66,7 @@
                     <tr>
                         <td><a href="{{ topic.get_absolute_url }}">{{ topic }}</a><span><span class="glyphicon glyphicon-asterisk"></span>最新</span>
                         </td>
-                        <td><a href="{{ topic.category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:red"></span>{{ topic.category }}</a></td>
+                        <td><a href="{{ topic.category.get_absolute_url }}"><span class="glyphicon glyphicon-apple" style="color:{{ topic.category.color }}"></span>{{ topic.category }}</a></td>
                         <td>{{ topic.auth }}</td>
                         <td>{{ topic.profile.views }}</td>
                     </tr>

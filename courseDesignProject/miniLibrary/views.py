@@ -22,7 +22,6 @@ def topic_create(request):
             topic = form.save(commit=False)
             topic.auth = request.user
             topic.save()
-            TopicProfile.objects.create(topic=topic)
             messages.success(request, '主题\'{}\'发布成功,等待管理员审核!'.format(topic.title))
             return redirect('minilibrary:topic_list')
     else:
@@ -132,3 +131,57 @@ def topic_bookmark(request, topic_id):
         except Topic.DoesNotExist:
             messages.error(request, '请求主题不存在!')
     return redirect('minilibrary:topic_list')
+
+
+@login_required
+def bookmark_list(request):
+    user = request.user
+    topicProfiles = user.bookmarked
+    return render(request, 'minilibrary/topic/bookmarkManage.html', {'topicProfiles': topicProfiles})
+    
+    
+@login_required
+def remove_bookmark(request, topic_id):
+    user = request.user
+    try:
+        topic = Topic.published.get(id=topic_id)
+        if user in topic.profile.user_bookmarks.all():
+            topic.profile.user_bookmarks.remove(user)
+            print('删除成功')
+            topic.profile.total_bookmarks -= 1
+            topic.profile.save()
+            messages.success(request, '\'{}\'已成功从收藏夹移除!'.format(topic))
+    except:
+        messages.error(request, '错误,删除失败!')
+    return redirect('minilibrary:bookmark_list')
+    
+    
+@login_required
+def topic_manage(request):
+    user = request.user
+    topics = user.topics
+    return render(request, 'minilibrary/topic/topic_manage.html', {'topics': topics})
+    
+    
+@login_required
+def topic_remove(request, topic_id):
+    user = request.user
+    try:
+        print(topic_id)
+        topic = Topic.objects.get(id=topic_id)
+        if topic in user.topics.all():
+            topic_name = topic.title
+            topic.delete()
+            messages.success(request, '\'{}\'已成功删除!'.format(topic_name))
+    except Topic.DoesNotExist:
+        messages.error(request, '失败,请求帖子不存在!')
+    return redirect('minilibrary:topic_manage')
+    
+
+def topic_search(request):
+    word = request.GET['search_word']
+    topics = Topic.published.all()
+    if word:
+        topics = Topic.published.filter(title__contains=word)
+    return render(request, 'minilibrary/topic/topic_list.html', {'topics': topics})
+        

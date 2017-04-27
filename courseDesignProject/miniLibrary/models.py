@@ -15,6 +15,7 @@ class TopicPublishManager(models.Manager):
 
 
 class Category(models.Model):
+    color = models.CharField(default='red',max_length=10)
     name = models.CharField(max_length=200)
     # slug = models.SlugField(max_length=200, blank=True)
 
@@ -55,6 +56,14 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self):
+        super(Topic, self).save()
+        try:
+            self.profile
+        except:
+            TopicProfile.objects.create(topic=self).save()
+            
 
     def get_absolute_url(self):
         return reverse('minilibrary:topic_detail', args=[self.id])
